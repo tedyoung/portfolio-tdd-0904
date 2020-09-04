@@ -42,8 +42,18 @@ public class PortfolioTest {
     portfolio.buy("AAPL", 100, 125, LocalDate.of(2020, 9, 3));
 
     assertThat(portfolio.display())
-        .isEqualTo("AAPL 100 $125 2020-09-03");
+        .containsOnlyOnce("AAPL 100 $125 2020-09-03");
   }
 
+  @Test
+  public void givenTwoStockHoldingsDisplayShowsBothHoldings() throws Exception {
+    Portfolio portfolio = new Portfolio();
+    portfolio.buy("AAPL", 100, 125, LocalDate.of(2020, 9, 3));
+    portfolio.buy("AMD", 200, 90, LocalDate.of(2020, 9, 3));
+
+    assertThat(portfolio.display())
+        .containsExactlyInAnyOrder("AAPL 100 $125 2020-09-03",
+                                   "AMD 200 $90 2020-09-03");
+  }
 
 }
