@@ -1,4 +1,4 @@
-package com.tedmyoung.portfolio;
+package com.tedmyoung.portfolio.domain;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,19 +41,20 @@ public class PortfolioTest {
     Portfolio portfolio = new Portfolio();
     portfolio.buy("AAPL", 100, 125, LocalDate.of(2020, 9, 3));
 
-    assertThat(portfolio.display())
-        .containsOnlyOnce("AAPL 100 $125 2020-09-03");
+    assertThat(portfolio.holdings())
+        .containsOnlyOnce(new Holding("AAPL", 100, 125, LocalDate.of(2020, 9, 3)));
   }
 
+
   @Test
-  public void givenTwoStockHoldingsDisplayShowsBothHoldings() throws Exception {
+  public void givenTwoStockHoldingsRequestForHoldingsReturnsBoth() throws Exception {
     Portfolio portfolio = new Portfolio();
     portfolio.buy("AAPL", 100, 125, LocalDate.of(2020, 9, 3));
     portfolio.buy("AMD", 200, 90, LocalDate.of(2020, 9, 3));
 
-    assertThat(portfolio.display())
-        .containsExactlyInAnyOrder("AAPL 100 $125 2020-09-03",
-                                   "AMD 200 $90 2020-09-03");
+    assertThat(portfolio.holdings())
+        .containsExactlyInAnyOrder(new Holding("AMD", 200, 90, LocalDate.of(2020, 9, 3)),
+                                   new Holding("AAPL", 100, 125, LocalDate.of(2020, 9, 3)));
   }
 
 }

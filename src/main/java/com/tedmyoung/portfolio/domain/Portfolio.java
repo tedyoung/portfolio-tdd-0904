@@ -1,9 +1,8 @@
-package com.tedmyoung.portfolio;
+package com.tedmyoung.portfolio.domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Portfolio {
   private final List<Holding> holdings = new ArrayList<>();
@@ -19,11 +18,7 @@ public class Portfolio {
     holdings.add(holding);
   }
 
-  public List<String> display() {
-    return holdings.stream()
-                   .map(Holding::display)
-                   .collect(Collectors.toUnmodifiableList());
+  public List<Holding> holdings() {
+    return List.copyOf(holdings);
   }
-
-
 }
